@@ -56,9 +56,6 @@ class ConnectFour:
 				self.grid[i][move] = self.turn
 				return
 
-	def display_grid(self):
-		self.pretty_print_grid()
-
 	def pretty_print_grid(self):
 		for row in self.grid:
 			print("|",end='')
@@ -106,16 +103,13 @@ class ConnectFour:
 			return True
 		return False
 
-
 	# Treating the grid as an image winning alignments can be detected by performing convolutions with kernels containing the winning 'pattern' (i.e. n in a row/column/diagonal) 
 	# This works by tallying up the values in local stretches of the grid, if the tally reaches the win_length a winning row/column/diagonal has been found
 	def convolve(self, kernel):
 		kernel_height = len(kernel)
 		kernel_width = len(kernel[0])
-
 		center_y = kernel_height // 2
 		center_x = kernel_width // 2
-
 		for i in range(self.rows):
 			for j in range(self.cols):
 				acc = 0 
@@ -131,7 +125,6 @@ class ConnectFour:
 					return -1
 		return 0
 
-
 	def initialise_game(self):
 		self.rows,self.cols = self.get_grid_size()
 		self.win_length = self.get_win_length()
@@ -140,18 +133,17 @@ class ConnectFour:
 		self.turn = -1 # -1=R 1=Y
 
 	def run_loop(self):
-		self.display_grid()
+		self.pretty_print_grid()
 		while True:
 			move = self.get_user_move()
 			self.update_grid(move)
-			self.display_grid()
+			self.pretty_print_grid()
 			if self.check_win_condition():
 				return
 			if self.check_stalemate():
 				self.turn = 0
 				return
 			self.turn = self.turn * -1 # Turn alternates between -1 and 1 - set to 0 if stalemate
-		
 
 	def play_game(self):
 		self.initialise_game()
@@ -166,4 +158,3 @@ class ConnectFour:
 if __name__ == "__main__":
 	game = ConnectFour()
 	game.play_game()
-
