@@ -32,10 +32,22 @@ class ConnectFour:
 	def display_grid(self):
 		pass
 
+	def pretty_print_grid(self):
+		for row in self.grid:
+			print("|",end='')
+			for value in row:
+				if (value == -1):
+					print("R|",end='')
+				elif (value == 0):
+					print("_|",end='')
+				else:
+					print("Y|",end='')			
+			print()
+
 	def run_loop(self):
 		self.rows,self.cols = self.get_grid_size()
-		self.grid = self.init_grid(self.rows,self.cols)
-		print(self.grid)
+		self.grid = self.create_grid(self.rows,self.cols)
+		self.pretty_print_grid()
 		return
 		while True:
 			self.get_user_move()
@@ -44,4 +56,5 @@ class ConnectFour:
 
 
 game = ConnectFour()
-# game.run_loop()
+game.run_loop()
+
