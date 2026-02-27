@@ -17,6 +17,17 @@ class ConnectFour:
 			except ValueError:
 				print("Value entered is not a positive integer.")
 
+	def get_win_length(self):
+		while True:
+			try:
+				win_length = int(input("Enter the win length: "))
+				if (win_length<= 0 or win_length > self.rows or win_length > self.cols):
+					raise ValueError
+				return win_length
+			except ValueError:
+				print("Value entered is not a valid integer.")
+
+
 	def create_grid(self,rows,cols):
 		if (rows <= 0 or cols <= 0):
 			raise ValueError("Rows and cols must be positive integers.")
@@ -46,6 +57,7 @@ class ConnectFour:
 
 	def run_loop(self):
 		self.rows,self.cols = self.get_grid_size()
+		self.win_length = self.get_win_length()
 		self.grid = self.create_grid(self.rows,self.cols)
 		self.pretty_print_grid()
 		return
