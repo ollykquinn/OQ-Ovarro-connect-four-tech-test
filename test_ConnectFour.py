@@ -22,6 +22,15 @@ class TestConnectFour(unittest.TestCase):
 		with self.assertRaises(ValueError):
 			self.game.create_grid(0,6)
 
+	def test_update_grid_correct_position(self):
+		game = ConnectFour()
+		game.grid = self.game.create_grid(5,5)
+		game.rows = 5
+		game.turn = -1
+		game.update_grid(2)
+		self.assertNotEqual(game.grid[4][2],0)
+
+
 
 if __name__ == "__main__":
 	unittest.main()

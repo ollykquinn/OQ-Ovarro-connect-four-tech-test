@@ -35,10 +35,26 @@ class ConnectFour:
 		return grid
 
 	def get_user_move(self):
-		pass
+		if (self.turn == -1):
+			print("Red's turn...")
+		else:
+			print("Yellow's turn...")
 
-	def update_grid(self):
-		pass
+		while True:
+			try:
+				col = int(input("Enter a column number: "))
+				if (col<= 0 or col > self.cols or self.grid[0][col-1] != 0):
+					raise ValueError
+				return col-1
+			except ValueError:
+				print("Value entered is not a valid column.")
+
+	def update_grid(self,move):
+		# March backwards from bottom of grid to find 'dropped' position
+		for i in range(self.rows-1,-1,-1):
+			if (self.grid[i][move] == 0):
+				self.grid[i][move] = self.turn
+				return
 
 	def display_grid(self):
 		self.pretty_print_grid()
@@ -54,24 +70,32 @@ class ConnectFour:
 				else:
 					print("Y|",end='')			
 			print()
+		print("|",end='')
+		for i in range(self.cols):
+			print(str(i+1)+"|",end='')
+		print()
 
 	def initialise_game(self):
 		self.rows,self.cols = self.get_grid_size()
 		self.win_length = self.get_win_length()
 		self.grid = self.create_grid(self.rows,self.cols)
-		self.turn = -1
+		self.turn = -1 # -1=R 1=Y
+		self.game_won = False
 
 	def run_loop(self):
-		while True:
-			return
-			self.get_user_move()
-			self.update_grid()
+		self.display_grid()
+		while not self.game_won:
+			move = self.get_user_move()
+			self.update_grid(move)
 			self.display_grid()
+
+			self.turn = self.turn * -1 # Turn alternates between -1 and 1
 
 	def play_game(self):
 		self.initialise_game()
 		self.run_loop()
 
-game = ConnectFour()
-game.play_game()
+if __name__ == "__main__":
+	game = ConnectFour()
+	game.play_game()
 
