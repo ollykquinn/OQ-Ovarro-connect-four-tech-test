@@ -41,7 +41,7 @@ class ConnectFour:
 		pass
 
 	def display_grid(self):
-		pass
+		self.pretty_print_grid()
 
 	def pretty_print_grid(self):
 		for row in self.grid:
@@ -55,18 +55,23 @@ class ConnectFour:
 					print("Y|",end='')			
 			print()
 
-	def run_loop(self):
+	def initialise_game(self):
 		self.rows,self.cols = self.get_grid_size()
 		self.win_length = self.get_win_length()
 		self.grid = self.create_grid(self.rows,self.cols)
-		self.pretty_print_grid()
-		return
+		self.turn = -1
+
+	def run_loop(self):
 		while True:
+			return
 			self.get_user_move()
 			self.update_grid()
 			self.display_grid()
 
+	def play_game(self):
+		self.initialise_game()
+		self.run_loop()
 
 game = ConnectFour()
-game.run_loop()
+game.play_game()
 
