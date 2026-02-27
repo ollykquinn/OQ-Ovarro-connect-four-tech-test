@@ -6,3 +6,22 @@ class TestConnectFour(unittest.TestCase):
 
 	def setUp(self):
 		self.game = ConnectFour()
+
+	def test_create_grid_correct_shape(self):
+		grid = self.game.create_grid(3,4)
+		self.assertEqual(len(grid),3)
+		self.assertEqual(len(grid[0]),4)
+
+	def test_create_grid_elements_zero(self):
+		grid = self.game.create_grid(2,2)
+		for row in grid:
+			for value in row:
+				self.assertEqual(value,0)
+
+	def test_create_grid_reject_non_positive(self):
+		with self.assertRaises(ValueError):
+			self.game.create_grid(0,6)
+
+
+if __name__ == "__main__":
+	unittest.main()
